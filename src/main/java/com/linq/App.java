@@ -14,7 +14,7 @@ public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) throws Exception {
-        new App().start("http://www.zhihu.com/question/20250029");
+        new App().start(args[0]);
     }
 
     private void start(String url) throws ConfigurationException, IOException, EmailException {

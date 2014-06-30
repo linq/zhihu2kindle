@@ -1,5 +1,6 @@
 package com.linq;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpResponse;
@@ -28,6 +29,9 @@ public class Login {
     private static final Logger logger = LoggerFactory.getLogger(Login.class);
 
     public String login(String email, String password) throws IOException {
+        if (StringUtils.isBlank(email))
+            return "";
+
         DefaultHttpClient client = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost("http://www.zhihu.com/login");
         HttpParams httpParams = new BasicHttpParams();

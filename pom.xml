@@ -71,4 +71,28 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <version>1.8</version>
+                <configuration>
+                    <configurationDirectory>conf</configurationDirectory>
+                    <configurationSourceDirectory>src/main/resources</configurationSourceDirectory>
+                    <copyConfigurationDirectory>true</copyConfigurationDirectory>
+                    <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+                    <repositoryLayout>flat</repositoryLayout>
+                    <!--<extraJvmArguments>-Dfile.encoding=UTF-8</extraJvmArguments>-->
+                    <programs>
+                        <program>
+                            <mainClass>com.linq.App</mainClass>
+                            <id>zhihu2kindle</id>
+                        </program>
+                    </programs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

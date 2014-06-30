@@ -115,4 +115,8 @@ public class AppConfig {
     public void setSsl(boolean isSsl) {
         this.isSsl = isSsl;
     }
+
+    public static void main(String[] args) {
+        System.out.println(System.getProperty("sun.jnu.encodin"));
+    }
 }

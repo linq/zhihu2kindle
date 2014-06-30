@@ -71,7 +71,7 @@ public class ConfigLoader {
     }
 
     private void checkCookie(AppConfig config) throws IOException {
-        File file = getCookieFile();
+        File file = getCookieFile(config);
         @SuppressWarnings("unchecked")
         List<String> lines = FileUtils.readLines(file);
         if (lines.size() == 2) {
@@ -83,17 +83,19 @@ public class ConfigLoader {
         }
 
         String cookie = new Login().login(config.getEmail(), config.getPassword());
-        config.setCookie(cookie);
-        lines.clear();
-        lines.add(String.valueOf(System.currentTimeMillis()));
-        lines.add(cookie);
-        FileUtils.writeLines(file, lines);
+        if (StringUtils.isNotBlank(cookie)) {
+            config.setCookie(cookie);
+            lines.clear();
+            lines.add(String.valueOf(System.currentTimeMillis()));
+            lines.add(cookie);
+            FileUtils.writeLines(file, lines);
 
-        logger.info("write cookie to {}", file.getPath());
+            logger.info("write cookie to {}", file.getPath());
+        }
     }
 
-    private File getCookieFile() throws IOException {
-        String pwd = ConfigLoader.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    private File getCookieFile(AppConfig config) throws IOException {
+        String pwd = config.getLocalPath().replaceFirst("/zhihu2kindle/\\d+", "/zhihu2kindle");
         File file = new File(String.format("%s/.cookie", pwd));
         if (!file.exists()) {
             FileUtils.touch(file);
