@@ -1,6 +1,7 @@
 package com.linq;
 
 import com.linq.meta.Question;
+import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -78,7 +79,8 @@ public class MobiGen {
         String cmd = String.format("\"%s\" \"%s\" -o \"%s\".mobi", kindlegen, name, title);
         logger.info("execute shell: {}", cmd);
         Process process = Runtime.getRuntime().exec(cmd);
-        IOUtils.copy(process.getInputStream(), System.out);
+        String string = IOUtils.toString(process.getInputStream(), CharEncoding.UTF_8);
+        IOUtils.write(string, System.out);
         return String.format("%s/%s.mobi", appConfig.getLocalPath(), title);
     }
 
